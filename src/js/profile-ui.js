@@ -1,8 +1,7 @@
 var GitHubUser = require('./../src/js/profile.js').getRepos;
 
-var displayUser = function(userdata) {
-  console.log(response);
-  $("#showRepos").text(userdata);
+var displayUser = function(response) {
+  $(".showUser").text(response.name);
 }
 
 $(document).ready(function() {
