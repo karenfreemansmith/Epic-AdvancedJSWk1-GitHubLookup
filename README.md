@@ -14,8 +14,19 @@ Show github profile with repositories for a given username.
 ## Support & Contact
 For questions, concerns, or suggestions please email karenfreemansmith@gmail.com
 
+## Setup/Installation
+* Clone directory
+* Run 'npm install'
+* Run 'bower install'
+* Obtain an API key from [GitHub](https://github.com)
+  * *Visit the Settings area of your GitHub account, select Personal Access Tokens from the sidebar, and hit Generate New Token.*
+* Create an .env file in the main directory with this line of code:
+  * exports.apiKey = "(_insert your new API key here_)";
+* Type 'gulp serve'
+
 ## Known Issues
-* N/A
+* requires APIKey from GitHub to run
+* gulp deploy fails on Epicodus machines (may be from typo on password, but has error in npm file now)
 
 ## Technologies Used
 HTML, CSS, JavaScript, Node.js, NPM, Gulp, Browserify, Uglify, Concat, Bower, and more!
