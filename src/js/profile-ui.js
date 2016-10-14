@@ -7,14 +7,13 @@ var displayUser = function(response) {
   $(".showUser").append("<img src='"+ response.avatar_url+"' class='img-responsive img-thumbnail' alt='GitHub Avatar'>");
   $(".showUser").append("<h4>"+ response.public_repos + " Repositories, "+ response.followers +" Followers</h4>");
   $(".showUser").append("<p>" + response.bio + " (" + response.email + ")</p>");
-  console.log(response);
 };
 
 var displayUserNotFound = function() {
   $(".showRepos").text("");
   $(".showUser").text("");
   $(".showUser").append("<h3>Username Not Found</h3>");
-}
+};
 
 var displayFavorites = function(response) {
   $(".showUser").append("<div class='favorites row'>");
@@ -22,15 +21,13 @@ var displayFavorites = function(response) {
     $(".favorites").append("<div class='col-sm-4'>"+fav+"</div>");
   });
   $(".showUser").append("</div");
-  console.log(response);
 };
 
 var displayRepos = function(response) {
   $(".showRepos").text("");
   response.forEach(function(repo) {
-    $(".showRepos").append("<div class='col-sm-6'><h3><a href='"+repo.html_url+"' target='_blank'>"+repo.name.substring(0,24)+"</a></h3><p>"+repo.description+"</p></div>")
+    $(".showRepos").append("<div class='col-sm-6'><h3><a href='" + repo.html_url + "' target='_blank'>" + repo.name.substring(0,20) + "</a></h3><p>(" + moment(repo.pushed_at).startOf('day').fromNow() + ")</p><p>" + repo.description + "</p></div>");
   });
-  console.log(response);
 };
 
 $(document).ready(function() {
@@ -42,7 +39,7 @@ $(document).ready(function() {
     $('#username').val("");
 
     currentGitHubUser.getUser(username, displayUser, displayUserNotFound);
-    currentGitHubUser.getFavorites(username, displayFavorites)
+    currentGitHubUser.getFavorites(username, displayFavorites);
     currentGitHubUser.getRepos(username, displayRepos);
   });
 });

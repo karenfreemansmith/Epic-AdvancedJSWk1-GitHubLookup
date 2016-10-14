@@ -1,5 +1,5 @@
-var apiKey = require('./../../.env').apiKey;
 // TODO: add logic for users when key is not available
+var apiKey = require('./../../.env').apiKey;
 
 function GitHubUser() {
 }
@@ -15,14 +15,12 @@ GitHubUser.prototype.getUser = function(username, displayUser, displayUserNotFou
   };
 
 GitHubUser.prototype.getFavorites = function(username, displayFavorites) {
+  var favorites=[];
   $.get('https://api.github.com/users/'+ username +'/following?per_page=99&access_token=' + apiKey)
     .then(function(response){
-      // TODO: add users to an array and run pagination until there are no more users
-      var favorites=[];
       response.forEach(function(fav) {
         favorites.push(fav.login);
       });
-
       favorites.sort(function(a, b) {
         var nameA = a.toUpperCase();
         var nameB = b.toUpperCase();
@@ -37,19 +35,34 @@ GitHubUser.prototype.getFavorites = function(username, displayFavorites) {
       displayFavorites(favorites);
     })
     .fail(function(error){
+      console.log(error);
     });
   };
 
 GitHubUser.prototype.getRepos = function(username, displayRepos) {
+  var bigresponse=[];
   $.get('https://api.github.com/users/'+ username +'/repos?sort=pushed&per_page=100&access_token=' + apiKey)
     .then(function(response){
-      // TODO: add repos to an array and run pagination until there are no more repos
-      response.sort(function(a, b) {
+      response.forEach(function(repo) {
+        bigresponse.push(repo);
+      });
+      $.get('https://api.github.com/users/'+ username +'/repos?sort=pushed&page=2&per_page=100&access_token=' + apiKey)
+        .then(function(response){
+          response.forEach(function(repo) {
+            bigresponse.push(repo);
+          });
+        })
+        .fail(function(error){
+          console.log(error);
+        });
+
+      bigresponse.sort(function(a, b) {
         return b.size-a.size;
       });
-      displayRepos(response);
+      displayRepos(bigresponse);
     })
     .fail(function(error){
+      console.log(error);
     });
   };
 
