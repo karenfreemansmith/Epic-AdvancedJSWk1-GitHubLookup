@@ -19,7 +19,7 @@ var displayUserNotFound = function() {
 var displayFavorites = function(response) {
   $(".showUser").append("<div class='favorites row'>");
   response.forEach(function(fav) {
-    $(".favorites").append("<div class='col-sm-4'>"+fav.login+"</div>");
+    $(".favorites").append("<div class='col-sm-4'>"+fav+"</div>");
   });
   $(".showUser").append("</div");
   console.log(response);
@@ -35,7 +35,6 @@ var displayRepos = function(response) {
 
 $(document).ready(function() {
   var currentGitHubUser = new GitHubUser();
-
 
   $('#getUser').click(function() {
     event.preventDefault();

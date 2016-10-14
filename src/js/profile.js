@@ -18,8 +18,23 @@ GitHubUser.prototype.getFavorites = function(username, displayFavorites) {
   $.get('https://api.github.com/users/'+ username +'/following?per_page=99&access_token=' + apiKey)
     .then(function(response){
       // TODO: add users to an array and run pagination until there are no more users
-      // TODO: sort users by name (case insensitive)
-      displayFavorites(response);
+      var favorites=[];
+      response.forEach(function(fav) {
+        favorites.push(fav.login);
+      });
+
+      favorites.sort(function(a, b) {
+        var nameA = a.toUpperCase();
+        var nameB = b.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      displayFavorites(favorites);
     })
     .fail(function(error){
     });
