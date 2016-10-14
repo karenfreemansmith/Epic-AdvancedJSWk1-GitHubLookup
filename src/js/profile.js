@@ -12,6 +12,15 @@ GitHubUser.prototype.getUser = function(username, displayUser){
     });
   };
 
+GitHubUser.prototype.getFavorites = function(username, displayFavorites){
+  $.get('https://api.github.com/users/'+ username +'/following?access_token=' + apiKey)
+    .then(function(response){
+      displayFavorites(response);
+    })
+    .fail(function(error){
+    });
+  };
+
 GitHubUser.prototype.getRepos = function(username, displayRepos){
   $.get('https://api.github.com/users/'+ username +'/repos?access_token=' + apiKey)
     .then(function(response){
