@@ -1,6 +1,6 @@
 var apiKey = require('./../../.env').apiKey;
 
- function GitHubUser() {
+function GitHubUser() {
 }
 
 GitHubUser.prototype.getRepos = function(username, displayUser){
