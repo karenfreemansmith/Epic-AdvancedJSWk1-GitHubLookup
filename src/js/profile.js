@@ -44,7 +44,9 @@ GitHubUser.prototype.getRepos = function(username, displayRepos) {
   $.get('https://api.github.com/users/'+ username +'/repos?sort=pushed&per_page=100&access_token=' + apiKey)
     .then(function(response){
       // TODO: add repos to an array and run pagination until there are no more repos
-      // TODO: sort repos by number of commits? size? Something that might indicate "best" repost at the top of the list better than just date order
+      response.sort(function(a, b) {
+        return b.size-a.size;
+      });
       displayRepos(response);
     })
     .fail(function(error){
