@@ -28,7 +28,7 @@ var displayUserNotFound = function() {
 var displayFavorites = function(response) {
   $(".showUser").append("<div class='favorites row'>");
   response.forEach(function(fav) {
-    $(".favorites").append("<div class='col-sm-4'>"+fav+"</div>");
+    $(".favorites").append("<div class='col-sm-6'>"+fav+"</div>");
   });
   $(".showUser").append("</div");
 };
@@ -36,7 +36,15 @@ var displayFavorites = function(response) {
 var displayRepos = function(response) {
   $(".showRepos").text("");
   response.forEach(function(repo) {
-    $(".showRepos").append("<div class='col-sm-6'><h3><a href='" + repo.html_url + "' target='_blank'>" + repo.name.substring(0,20) + "</a></h3><p>(" + moment(repo.pushed_at).startOf('day').fromNow() + ")</p><p>" + repo.description + "</p></div>");
+    $(".showRepos").append("<div class='col-sm-6'>");
+    $(".showRepos").append("<h3><a href='" + repo.html_url + "' target='_blank'>" + repo.name.substring(0,30) + "</a></h3>");
+    $(".showRepos").append("<p>(" + moment(repo.pushed_at).startOf('day').fromNow() + ")</p><p>");
+    if(repo.description) {
+      $(".showRepos").append(repo.description);
+    } else {
+      $(".showRepos").append("<i>no description</i>");
+    }
+    $(".showRepos").append("</p></div>");
   });
 };
 
