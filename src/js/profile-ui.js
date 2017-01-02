@@ -2,11 +2,21 @@ var GitHubUser = require('./../src/js/profile.js').getRepos;
 
 var displayUser = function(response) {
   $(".showUser").text("");
-  $(".showUser").append("<h3>" + response.name + "</h3>");
+  if(response.name) {
+    $(".showUser").append("<h3>" + response.name + "</h3>");
+  }
   $(".showUser").append("<p>Joined " + moment(response.created_at).startOf('day').fromNow() + "</p>");
   $(".showUser").append("<img src='"+ response.avatar_url+"' class='img-responsive img-thumbnail' alt='GitHub Avatar'>");
   $(".showUser").append("<h4>"+ response.public_repos + " Repositories, "+ response.followers +" Followers</h4>");
-  $(".showUser").append("<p>" + response.bio + " (" + response.email + ")</p>");
+
+  $(".showUser").append("<p>");
+  if(response.bio) {
+    $(".showUser").append(response.bio);
+  }
+  if(response.email) {
+    $(".showUser").append(" (" + response.email + ")");
+  }
+  $(".showUser").append("</p>");
 };
 
 var displayUserNotFound = function() {
@@ -33,7 +43,7 @@ var displayRepos = function(response) {
 $(document).ready(function() {
   var currentGitHubUser = new GitHubUser();
 
-  $('#getUser').click(function() {
+  $('#getUser').click(function(event) {
     event.preventDefault();
     var username = $('#username').val();
     $('#username').val("");
