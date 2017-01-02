@@ -105,7 +105,7 @@ var displayRepos = function(response) {
 $(document).ready(function() {
   var currentGitHubUser = new GitHubUser();
 
-  $('#getUser').click(function() {
+  $('#getUser').click(function(event) {
     event.preventDefault();
     var username = $('#username').val();
     $('#username').val("");
