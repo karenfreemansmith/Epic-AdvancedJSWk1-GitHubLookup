@@ -46,15 +46,6 @@ GitHubUser.prototype.getRepos = function(username, displayRepos) {
       response.forEach(function(repo) {
         bigresponse.push(repo);
       });
-      $.get('https://api.github.com/users/'+ username +'/repos?sort=pushed&page=2&per_page=100')
-        .then(function(response){
-          response.forEach(function(repo) {
-            bigresponse.push(repo);
-          });
-        })
-        .fail(function(error){
-          console.log(error);
-        });
 
       bigresponse.sort(function(a, b) {
         return b.size-a.size;
